@@ -5,6 +5,7 @@ import { useMutation } from 'urql';
 import { InputField } from '../components/InputField';
 import { Wrapper } from '../components/Wrapper';
 import { useRegisterMutation } from '../gen/gql';
+import { toErrorMap } from '../utils/toErrorMap';
 
 interface registerProps {}
 
@@ -34,9 +35,7 @@ const Register: React.FC<registerProps> = ({}) => {
 					{
 						const res = await register(values);
 						if (res.data?.register.errors) {
-							setErrors({
-								username: 'hey Im an error',
-							});
+							setErrors(toErrorMap(res.data.register.errors));
 						}
 					}
 				}}
