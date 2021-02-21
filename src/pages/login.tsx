@@ -1,14 +1,14 @@
-import { Box, Button, FormControl, FormLabel, Input } from '@chakra-ui/react';
+import { Box, Button, Flex, Link } from '@chakra-ui/react';
 import { Form, Formik } from 'formik';
+import { withUrqlClient } from 'next-urql';
+import NextLink from 'next/link';
+import { useRouter } from 'next/router';
 import React from 'react';
-import { useMutation } from 'urql';
 import { InputField } from '../components/InputField';
 import { Wrapper } from '../components/Wrapper';
-import { useLoginMutation, useRegisterMutation } from '../gen/gql';
-import { toErrorMap } from '../utils/toErrorMap';
-import { useRouter } from 'next/router';
+import { useLoginMutation } from '../gen/gql';
 import { createUrqlClient } from '../utils/createUrqlClient';
-import { withUrqlClient } from 'next-urql';
+import { toErrorMap } from '../utils/toErrorMap';
 
 const Login: React.FC<{}> = ({}) => {
 	const router = useRouter();
@@ -16,10 +16,10 @@ const Login: React.FC<{}> = ({}) => {
 	return (
 		<Wrapper variant='small'>
 			<Formik
-				initialValues={{ username: '', password: '' }}
+				initialValues={{ usernameOrEmail: '', password: '' }}
 				onSubmit={async (values, { setErrors }) => {
 					{
-						const res = await login({ options: values });
+						const res = await login(values);
 						if (res.data?.login.errors) {
 							setErrors(toErrorMap(res.data.login.errors));
 						} else if (res.data?.login.user) {
@@ -31,9 +31,9 @@ const Login: React.FC<{}> = ({}) => {
 				{({ isSubmitting }) => (
 					<Form>
 						<InputField
-							name='username'
-							placeholder='username'
-							label='Username'
+							name='usernameOrEmail'
+							placeholder='username or email'
+							label='Username or Email'
 						/>
 						<Box mt={4}>
 							<InputField
@@ -43,6 +43,11 @@ const Login: React.FC<{}> = ({}) => {
 								type='password'
 							/>
 						</Box>
+						<Flex>
+							<NextLink href='/forgot-password'>
+								<Link ml='auto'>forgot password?</Link>
+							</NextLink>
+						</Flex>
 						<Button
 							mt={4}
 							type='submit'
