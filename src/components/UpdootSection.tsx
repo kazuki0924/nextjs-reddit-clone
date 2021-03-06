@@ -13,7 +13,6 @@ export const UpdootSection: React.FC<UpdootSectionProps> = ({ post }) => {
 	>('not-loading');
 	const [, vote] = useVoteMutation();
 
-	console.log('voteStatus', post.voteStatus);
 	return (
 		<Flex direction='column' justifyContent='center' alignItems='center' mr={4}>
 			<IconButton
@@ -28,7 +27,7 @@ export const UpdootSection: React.FC<UpdootSectionProps> = ({ post }) => {
 					});
 					setLoadingState('not-loading');
 				}}
-				backgroundColor={post.voteStatus === 1 ? 'green.400' : undefined}
+				backgroundColor={post.voteStatus === 1 ? 'green.400' : 'gray.300'}
 				isLoading={loadingState === 'updoot-loading'}
 				aria-label='updoot post'
 				icon={<ChevronUpIcon />}
@@ -46,7 +45,7 @@ export const UpdootSection: React.FC<UpdootSectionProps> = ({ post }) => {
 					});
 					setLoadingState('not-loading');
 				}}
-				backgroundColor={post.voteStatus === -1 ? 'red.600' : undefined}
+				backgroundColor={post.voteStatus === -1 ? 'red.600' : 'gray.300'}
 				isLoading={loadingState === 'downdoot-loading'}
 				aria-label='downdoot post'
 				icon={<ChevronDownIcon />}
