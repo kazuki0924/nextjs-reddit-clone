@@ -8,6 +8,7 @@ interface UpdootSectionProps {
 }
 
 export const UpdootSection: React.FC<UpdootSectionProps> = ({ post }) => {
+	console.log(post);
 	const [loadingState, setLoadingState] = useState<
 		'updoot-loading' | 'downdoot-loading' | 'not-loading'
 	>('not-loading');

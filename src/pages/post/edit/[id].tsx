@@ -69,7 +69,7 @@ export const EditPost = ({}) => {
 							isLoading={isSubmitting}
 							colorScheme='twitter'
 						>
-							create post
+							submit
 						</Button>
 					</Form>
 				)}

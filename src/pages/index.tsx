@@ -96,6 +96,3 @@ const Index = () => {
 };
 
 export default withUrqlClient(createUrqlClient, { ssr: true })(Index);
-function useDeletePostsQuery(arg0: {}): [{ data: any; fetching: any }] {
-	throw new Error('Function not implemented.');
-}
